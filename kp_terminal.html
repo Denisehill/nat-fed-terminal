@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="system">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纳特联邦 - 系统后台</title>
+<style>
+  /* 样式与之前完全一致，省略大部分以节省显示空间，复制时直接使用之前的样式即可 */
+  :root[data-theme="system"] { --bg: #0a0a0a; --panel: #141414; --text: #d4d4d4; --accent: #ff3333; --success: #00ffcc; --danger: #ff3333; --border: #331111; --input-bg: #000000; --btn-text: #ffffff; --table-stripe: #1a1a1a; }
+  :root[data-theme="brain"] { --bg: #f0f4f8; --panel: #ffffff; --text: #1a202c; --accent: #2b6cb0; --success: #2f855a; --danger: #c53030; --border: #cbd5e0; --input-bg: #edf2f7; --btn-text: #ffffff; --table-stripe: #f7fafc; }
+  body { font-family: 'Courier New', Courier, monospace; background: var(--bg); color: var(--text); margin: 0; padding: 20px; transition: all 0.3s ease; }
+  .top-bar { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 20px auto; }
+  .title-block { display: flex; align-items: center; gap: 12px; }
+  .title-block h1 { color: var(--accent); margin: 0; font-size: 1.5em; }
+  .theme-switch { background: var(--panel); color: var(--text); border: 1px solid var(--accent); padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: inherit; }
+  .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin: 0 auto 20px auto; }
+  .nav-btn { flex: 1; background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 12px; cursor: pointer; font-weight: bold; font-family: inherit; border-radius: 8px; }
+  .nav-btn.active { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: flex; gap: 20px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+  .kp-container { display: flex; gap: 20px; width: 100%; align-items: flex-start; }
+  .player-list-panel { width: 300px; flex-shrink: 0; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; }
+  .player-list { list-style: none; padding: 0; margin: 0; }
+  .player-list li { padding: 10px; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .player-list li.active { border-left: 4px solid var(--accent); background: var(--input-bg); font-weight: bold; }
+  .detail-panel { flex: 1; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; min-width: 0; }
+  label { display: block; margin: 10px 0 5px; font-size: 0.9em; opacity: 0.8; }
+  input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border); color: var(--text); padding: 8px; box-sizing: border-box; font-family: inherit; border-radius: 4px; }
+  button.action-btn { background: var(--accent); color: var(--btn-text); border: none; padding: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; font-family: inherit; border-radius: 4px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .section-title { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-top: 20px; font-size: 1.1em; }
+  .secret-box { border: 1px dashed var(--danger); background: rgba(255, 51, 51, 0.1); padding: 10px; border-radius: 4px; margin-top: 10px; }
+  .reward-box { border: 1px solid var(--success); background: rgba(0, 255, 204, 0.05); padding: 15px; border-radius: 4px; margin-top: 15px; }
+  .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .btn-group button { flex: 1; }
+
+  /* 战斗控制台样式 */
+  .combat-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; width: 100%; }
+  .combat-table { width: 100%; border-collapse: collapse; font-size: 0.9em; margin-top: 15px; }
+  .combat-table th, .combat-table td { border: 1px solid var(--border); padding: 8px; text-align: center; }
+  .combat-table th { background: var(--input-bg); color: var(--accent); }
+  .combat-table tr.active-turn { background: rgba(255, 51, 51, 0.2); font-weight: bold; }
+  .hp-input { width: 60px; text-align: center; padding: 4px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title-block">
+    <h1 id="pageTitle">纳特联邦 · 系统后台</h1>
+  </div>
+  <button class="theme-switch" onclick="toggleTheme()" id="themeBtn">切换至 主脑后台</button>
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn active" onclick="switchTab('kp')" id="btn-kp">玩家终端</button>
+  <button class="nav-btn" onclick="switchTab('combat')" id="btn-combat">战斗控制台</button>
+  <button class="nav-btn" onclick="switchTab('rules')" id="btn-rules">规则查阅库</button>
+</div>
+
+<!-- ================= 玩家终端 ================= -->
+<div id="tab-kp" class="tab-content active">
+  <div class="kp-container">
+    <div class="player-list-panel">
+      <button class="action-btn" onclick="importChar()">导入玩家交接码</button>
+      <div id="emptyMessage" style="text-align: center; opacity: 0.5; margin-top: 20px;">暂无数据</div>
+      <ul class="player-list" id="playerList"></ul>
+    </div>
+    <div class="detail-panel" id="detailPanel">
+      <div style="text-align: center; opacity: 0.5; margin-top: 50px;">请导入或选择角色</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 战斗控制台 ================= -->
+<div id="tab-combat" class="tab-content">
+  <div class="combat-panel">
+    <h2>战斗/NPC 控制台</h2>
+    <div class="grid-3" style="margin-bottom: 15px; align-items: end;">
+      <div><label>NPC名称</label><input type="text" id="npc-name" placeholder="如：汇查者A"></div>
+      <div><label>HP</label><input type="number" id="npc-hp" value="10"></div>
+      <div><button class="action-btn" onclick="addNPC()" style="margin-top: 0;">添加NPC/怪物</button></div>
+    </div>
+
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <button class="action-btn" onclick="rollInitiative()" style="background: var(--success); color: #000;">投掷先攻 (按感知)</button>
+      <button class="action-btn" onclick="clearCombat()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger);">清空战斗</button>
+    </div>
+
+    <table class="combat-table" id="combatTable">
+      <thead>
+        <tr><th>先攻</th><th>名称</th><th>身份</th><th>当前HP</th><th>修改HP (+/-)</th><th>操作</th></tr>
+      </thead>
+      <tbody id="combatBody">
+        <!-- 动态生成 -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 规则库略 -->
+<div id="tab-rules" class="tab-content"><div class="panel"><h1>规则库</h1></div></div>
+
+<script>
+  let players = [];
+  let currentIndex = -1;
+  let combatants = [];
+
+  // --- 标签页切换 ---
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    document.getElementById('btn-' + tabName).classList.add('active');
+  }
+
+  // --- 战斗控制台逻辑 ---
+  function addNPC() {
+    const name = document.getElementById('npc-name').value;
+    const hp = parseInt(document.getElementById('npc-hp').value) || 10;
+    if (!name) return alert("请输入NPC名称");
+    combatants.push({ id: Date.now(), name: name, type: 'NPC', init: 0, hp: hp });
+    document.getElementById('npc-name').value = '';
+    renderCombat();
+  }
+
+  function rollInitiative() {
+    // 把所有导入的玩家加入战斗，并投先攻
+    combatants = combatants.filter(c => c.type === 'NPC'); // 清空之前的玩家先攻
+
+    players.forEach(p => {
+      const per = parseInt(p.attr.per) || 1;
+      // 感知1-3，对应基础投骰范围，简单的随机算法模拟
+      const roll = Math.floor(Math.random() * 6) + 1 + per;
+      combatants.push({ id: Date.now() + Math.random(), name: p.name, type: p.class, init: roll, hp: p.hp, isPlayer: true });
+    });
+
+    // NPC也随机投一个
+    combatants.forEach(c => {
+      if (c.type === 'NPC' && c.init === 0) {
+        c.init = Math.floor(Math.random() * 6) + 1;
+      }
+    });
+
+    // 按先攻排序
+    combatants.sort((a, b) => b.init - a.init);
+    renderCombat();
+  }
+
+  function renderCombat() {
+    const tbody = document.getElementById('combatBody');
+    tbody.innerHTML = '';
+    if(combatants.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6">暂无战斗单位，请添加NPC或投掷先攻</td></tr>';
+      return;
+    }
+
+    combatants.forEach((c, index) => {
+      const tr = document.createElement('tr');
+      if (index === 0) tr.className = 'active-turn'; // 简单标记第一个行动
+
+      tr.innerHTML = `
+        <td style="font-weight:bold; color:var(--accent);">${c.init}</td>
+        <td>${c.name}</td>
+        <td>${c.type}</td>
+        <td style="font-size:1.2em; font-weight:bold;">${c.hp}</td>
+        <td>
+          <button class="del-btn" onclick="updateCombatHP(${c.id}, -1)" style="font-size:1.2em; padding:0 10px;">-1</button>
+          <button class="del-btn" onclick="updateCombatHP(${c.id}, 1)" style="color:var(--success); font-size:1.2em; padding:0 10px;">+1</button>
+        </td>
+        <td><button class="del-btn" onclick="removeCombatant(${c.id})">移除</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function updateCombatHP(id, amount) {
+    const target = combatants.find(c => c.id === id);
+    if (target) {
+      target.hp += amount;
+      renderCombat();
+    }
+  }
+
+  function removeCombatant(id) {
+    combatants = combatants.filter(c => c.id !== id);
+    renderCombat();
+  }
+
+  function clearCombat() {
+    if(confirm("确定清空当前战斗列表吗？")) {
+      combatants = [];
+      renderCombat();
+    }
+  }
+
+  // --- 玩家终端逻辑 (与原版一致) ---
+  function importChar() {
+    const code = prompt("请粘贴玩家发来的交接码：");
+    if (!code) return;
+    try {
+      const data = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+      const existingIndex = players.findIndex(p => p.name === data.name);
+      if (existingIndex >= 0) {
+        if(confirm("发现同名角色，覆盖？")) { players[existingIndex] = data; currentIndex = existingIndex; } else return;
+      } else { players.push(data); currentIndex = players.length - 1; }
+      saveLocal(); renderList(); renderDetail();
+    } catch (e) { alert("无效交接码！"); }
+  }
+
+  function saveLocal() { localStorage.setItem('natFed_KP_v2', JSON.stringify(players)); }
+  function loadLocal() {
+    const saved = localStorage.getItem('natFed_KP_v2');
+    if (saved) { players = JSON.parse(saved); renderList(); }
+  }
+
+  function renderList() {
+    const list = document.getElementById('playerList');
+    const emptyMsg = document.getElementById('emptyMessage');
+    list.innerHTML = '';
+    if (players.length === 0) { emptyMsg.style.display = 'block'; return; }
+    emptyMsg.style.display = 'none';
+    players.forEach((p, index) => {
+      const li = document.createElement('li');
+      if (index === currentIndex) li.className = 'active';
+      li.innerHTML = `<span style="color:var(--accent)">${p.name}</span><br><span style="font-size:0.8em;opacity:0.7">${p.class} | HP: ${p.hp}</span>`;
+      li.onclick = () => { currentIndex = index; renderList(); renderDetail(); };
+      list.appendChild(li);
+    });
+  }
+
+  function renderDetail() {
+    const panel = document.getElementById('detailPanel');
+    if (currentIndex < 0) return;
+    const p = players[currentIndex];
+
+    // 构造物品列表HTML
+    let itemsHtml = '<tr><td colspan="3">无携带物品</td></tr>';
+    if (p.items && p.items.length > 0) {
+      itemsHtml = p.items.map(i => `<tr><td>${i.name}</td><td>${i.type}</td><td>${i.desc}</td></tr>`).join('');
+    }
+
+    let html = `
+      <h2 style="color:var(--accent); margin-top:0;">${p.name}</h2>
+      <div class="grid">
+        <div><label>HP (可改)</label><input type="number" value="${p.hp}" onchange="updateHP(this.value)"></div>
+        <div><label>成长点</label><input type="text" value="${p.growth_points || 0}" readonly></div>
+      </div>
+      <div class="grid-3">
+        <div><label>阶级: ${p.class}</label></div>
+        <div><label>城市: ${p.city}</label></div>
+        <div><label>职业: ${p.job || '无'}</label></div>
+      </div>
+
+      <div class="section-title">随身物品</div>
+      <table style="width:100%; border-collapse: collapse; font-size:0.85em; margin-top:10px;">
+        <tr style="background:var(--input-bg); color:var(--accent)"><th>名称</th><th>类型</th><th>备注</th></tr>
+        ${itemsHtml}
+      </table>
+
+      <div class="secret-box">
+        <label>深层数据 / 秘密</label>
+        <textarea readonly>${p.secret || '无'}</textarea>
+      </div>
+
+      <!-- 发送私域消息 -->
+      <div class="reward-box" style="border-color:var(--accent); background:transparent;">
+        <h3>生成私域密文</h3>
+        <input type="text" id="msg-input" placeholder="输入要发给该玩家的隐秘信息...">
+        <button class="action-btn" onclick="generateMsg()" style="margin-top:10px;">生成加密密文</button>
+      </div>
+
+      <div class="reward-box">
+        <h3>发放成长点数</h3>
+        <div class="grid">
+          <input type="number" id="kp-reward-points" value="1" min="1">
+          <button class="action-btn" onclick="generateRewardKey()" style="margin-top:0; background:var(--success); color:#000;">生成密钥</button>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="action-btn" onclick="exportChar()" style="background: transparent; border: 1px solid var(--accent); color: var(--accent);">导出更新交接码</button>
+        <button class="action-btn" onclick="deleteChar()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger);">删除角色</button>
+      </div>
+    `;
+    panel.innerHTML = html;
+  }
+
+  // 生成密文
+  function generateMsg() {
+    const text = document.getElementById('msg-input').value;
+    if (!text) return alert("请输入消息内容");
+    const base64 = btoa(unescape(encodeURIComponent(text)));
+    const code = `NF-MSG-${base64}`;
+    prompt("复制此密文发给玩家（玩家在终端点击“接收私域消息”输入）：", code);
+  }
+
+  function updateHP(val) {
+    if(currentIndex >= 0) { players[currentIndex].hp = parseInt(val) || 0; saveLocal(); renderList(); }
+  }
+
+  function generateRewardKey() {
+    const points = parseInt(document.getElementById('kp-reward-points').value) || 1;
+    const code = Math.random().toString(36).substring(2, 6).toUpperCase();
+    prompt("复制此密钥发给玩家兑换：", `NF-REWARD-${points}-${code}`);
+  }
+
+  function exportChar() {
+    const base64Str = btoa(unescape(encodeURIComponent(JSON.stringify(players[currentIndex]))));
+    prompt("发回给玩家的交接码：", base64Str);
+  }
+
+  function deleteChar() {
+    if(confirm("确定删除？")) {
+      players.splice(currentIndex, 1); currentIndex = -1; saveLocal(); renderList(); renderDetail();
+    }
+  }
+
+  window.onload = () => { loadLocal(); };
+</script>
+</body>
+</html>
