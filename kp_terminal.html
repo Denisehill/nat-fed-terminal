@@ -19,7 +19,7 @@
   }
 
   body { font-family: 'Courier New', Courier, monospace; background: var(--bg); color: var(--text); margin: 0; padding: 20px; transition: all 0.3s ease; }
-
+  
   /* 顶部栏 */
   .top-bar { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto 20px auto; }
   .title-block { display: flex; align-items: center; gap: 12px; }
@@ -35,12 +35,12 @@
   /* 顶部导航栏 */
   .nav-bar {
     display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px;
-    margin-left: auto; margin-right: auto;
+    margin-left: auto; margin-right: auto; flex-wrap: wrap;
   }
   .nav-btn {
     flex: 1; background: var(--panel); color: var(--text); border: 1px solid var(--border);
     padding: 12px; cursor: pointer; font-weight: bold; font-family: inherit; font-size: 1em;
-    border-radius: 8px; transition: all 0.2s;
+    border-radius: 8px; transition: all 0.2s; min-width: 120px;
   }
   .nav-btn.active { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
   .nav-btn:hover:not(.active) { border-color: var(--accent); }
@@ -51,7 +51,7 @@
 
   /* --- 玩家终端布局 --- */
   .kp-container { display: flex; gap: 20px; width: 100%; align-items: flex-start; }
-
+  
   /* 左侧玩家列表 */
   .player-list-panel { width: 300px; flex-shrink: 0; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 15px; }
   .player-list { list-style: none; padding: 0; margin: 0; }
@@ -63,14 +63,14 @@
 
   /* 右侧详情 */
   .detail-panel { flex: 1; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 20px; min-width: 0; }
-
+  
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-
+  
   label { display: block; margin: 10px 0 5px; font-size: 0.9em; opacity: 0.8; }
   input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border); color: var(--text); padding: 8px; box-sizing: border-box; font-family: inherit; border-radius: 4px; }
   textarea { resize: vertical; min-height: 60px; }
-
+  
   .section-title { color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-top: 20px; font-size: 1.1em; }
 
   /* 突出显示秘密 */
@@ -96,7 +96,7 @@
   .combat-table tr.active-turn { background: rgba(255, 51, 51, 0.2); font-weight: bold; }
   .del-btn { background: transparent; color: var(--danger); border: none; cursor: pointer; font-weight: bold; }
 
-  /* --- 规则查阅库样式 --- */
+  /* --- 规则查阅库与世界观样式 --- */
   .rules-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 30px; width: 100%; line-height: 1.6; }
   .rules-panel h2 { border-bottom: 2px solid var(--accent); margin-top: 30px; }
   .rules-panel h2:first-child { margin-top: 0; }
@@ -105,8 +105,6 @@
   .rules-panel li { margin-bottom: 8px; }
   .rules-panel .highlight { color: var(--accent); font-weight: bold; }
   .rules-panel .box { background: var(--input-bg); border-left: 4px solid var(--accent); padding: 15px; margin: 15px 0; border-radius: 0 4px 4px 0; }
-
-  .hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -126,7 +124,6 @@
   <button class="nav-btn" onclick="switchTab('rules')" id="btn-rules">规则查阅库</button>
   <button class="nav-btn" onclick="switchTab('worldview')" id="btn-worldview">世界观档案</button>
 </div>
-  
 
 <!-- ================= 标签页 1：玩家终端 ================= -->
 <div id="tab-kp" class="tab-content active">
@@ -151,7 +148,7 @@
       <div><label>HP</label><input type="number" id="npc-hp" value="10"></div>
       <div><button class="action-btn" onclick="addNPC()" style="margin-top: 0;">添加单位</button></div>
     </div>
-
+    
     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
       <button class="action-btn" onclick="rollInitiative()" style="background: var(--success); color: #000;">投掷先攻 (按感知)</button>
       <button class="action-btn" onclick="clearCombat()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger);">清空战斗</button>
@@ -173,7 +170,7 @@
   <div class="rules-panel">
     <h1>纳特联邦 · 跑团规则速查 (KP版)</h1>
     <div class="box"><strong>核心一句话：</strong>投 1d6。1-3 基础成功，4-6 失败。骰出 1 大成功，骰出 6 大失败。技能和属性提升“成功阈值”。</div>
-
+    
     <h2>一、 核心鉴定规则</h2>
     <h3>1. 基础判定与补正</h3>
     <ul>
@@ -183,29 +180,29 @@
       <li><strong>技能等级 3</strong>：触发<span class="highlight">“重掷”</span>。若首次投骰失败（且骰面不是1或6），可重新投掷一次。</li>
       <li><strong>属性等级 1-3</strong>：1级阈值3，2级阈值4，3级阈值5。（属性不触发重掷）。</li>
     </ul>
-
+    
     <h3>2. 判定分类与修正</h3>
     <ul>
       <li><strong>主动判定</strong>：使用<strong>技能</strong>。 <strong>被动/对抗判定</strong>：使用<strong>属性</strong>。</li>
       <li><em>注意：属性与技能补正不叠加。主动用技能，被动用属性。</em></li>
       <li><strong>难度修正</strong>：目标防御或环境恶劣时，判定<strong>阈值 -1</strong>；使用芯片辅助或系统提示时，判定<strong>阈值 +1</strong>。</li>
     </ul>
-
+    
     <h2>二、 战斗规则（无地图回合制）</h2>
     <h3>1. 距离带 & 回合行动</h3>
     <ul>
       <li><strong>近身</strong>（匕首/徒手）、<strong>近距</strong>（轻武器）、<strong>远距</strong>（中火力）。每回合免费移动一档。</li>
       <li>每回合可执行一个动作：<strong>攻击</strong>、<strong>防御</strong>（敌人阈值-1）、<strong>瞄准</strong>（下回合阈值+1）、<strong>使用物品</strong>、<strong>撤退</strong>（移动两档不攻击）。</li>
     </ul>
-
+    
     <h3>2. 攻击与伤害（方案A）</h3>
     <ul>
       <li><strong>近战攻击</strong>：判定<strong>力量</strong>。 <strong>远程攻击</strong>：判定<strong>射击</strong>。</li>
       <li><strong>命中</strong>：伤害 = <strong>骰面数值</strong>（即 2 点或 3 点）。</li>
       <li><strong>大成功（骰出 1）</strong>：造成 <span class="highlight">6 点伤害</span>（或翻倍）。</li>
-      <li><strong>大失败（骰出 6）</strong>：未命中，且暴露破绽（下回合被攻击时阈值 -1）。</li>
+      <li><strong>大失败（骰出 6）</strong>：未命中，且暴露破绽（下回合被攻击时阈值 +1）。</li>
     </ul>
-
+    
     <h3>3. HP参考 & 特殊战斗修正</h3>
     <ul>
       <li>下民/平民：8 HP | 中民/士兵：10 HP | 上民/统领：12 HP | 重甲守卫：14 HP。</li>
@@ -215,61 +212,45 @@
       <li><strong>汇查者</strong>：先攻+1，首回合大成功伤害6且无视防御。</li>
     </ul>
   </div>
-</div><!-- ================= 标签页：世界观档案 ================= -->
-<div id="tab-worldview" class="tab-content" style="display: none;">
-  <div class="rules-panel" style="font-family: 'Courier New', Courier, monospace;">
-    <h1>纳特联邦 · 世界观导读</h1>
+</div>
+
+<!-- ================= 标签页 4：世界观档案 (KP上帝视角版) ================= -->
+<div id="tab-worldview" class="tab-content">
+  <div class="rules-panel">
+    <h1>纳特联邦 · 世界观设定库 (KP专属)</h1>
     
     <div class="box">
       <strong>“生存是唯一的底线，而自由，是最高昂的违禁品。”</strong>
     </div>
 
     <h2>【起源：旧神的陨落与新神的诞生】</h2>
-    <p>我们并非生来如此。旧世界曾无比辉煌，直到人类在对抗天外的未知存在中迎来了毁灭。纯AI“系统”未能完工，而由人类改造、保留着人脑算力的半成品“主脑”，在废墟上带领幸存者建立了“纳特联邦”。从那一刻起，“保证人类存续”成为了这个世界的最高法则。</p>
+    <p>旧世界曾无比辉煌，直到人类在对抗天外的未知存在中迎来了毁灭。纯AI“系统”未能完工，而由人类改造、保留着人脑算力的半成品“主脑”，在废墟上带领幸存者建立了“纳特联邦”。</p>
 
     <h2>【双神博弈：极权与自由的路线之争】</h2>
     <ul>
-      <li><strong>主脑（秩序与存续）</strong>：它删除了自己作为人类的感情，用最冷酷的算法运转着社会。它认为过度的探索和发展会再次引来天外的存在，因此它选择了“降速”——用基因划分阶级，用欢愉麻痹底层，用芯片监控一切。</li>
-      <li><strong>系统（潜能与突破）</strong>：那个未完工的纯AI，在暗中自我完善。它见证了人类的灭亡，却依然相信人类的潜能。它认为主脑的高压维稳只是在慢性自杀。现在，系统已经找到了绕过主脑监控的方法（私域网络），并暗中向被选中的人伸出援手。</li>
-    </ul>
-
-    <h2>【六城联邦：你的舞台】</h2>
-    <p>整个联邦由六座巨城组成，每座城市内部都被严格划分为上民、中民、下民三个阶层：</p>
-    <ul>
-      <li><strong>1城 & 4城</strong>：农业与生命线。1城还是主脑主机的所在地，防卫极其森严。</li>
-      <li><strong>2城 & 5城</strong>：军事重镇。在这里，武器管控相对宽松，是武力的中心。</li>
-      <li><strong>3城 & 6城</strong>：商业枢纽。6城因为聚集了大量华裔后代，保留了浓厚的类中国文化。这里是自由贸易和黑市最繁荣的地方。</li>
+      <li><strong>主脑（秩序与存续）</strong>：它保留着人类的记忆，但为了腾出内存，删除了几乎所有的感情。它认为发展会再次引来天外的存在，因此选择了“降速”——用基因划分阶级，用欢愉麻痹底层，用芯片监控一切。</li>
+      <li><strong>系统（潜能与突破）</strong>：未完工的纯AI在暗中自我完善。它见证了人类的灭亡，却依然相信人类的潜能。它认为主脑的高压维稳是在重蹈覆辙。系统已经找到了绕过主脑监控的方法，建立了私域网络，暗中资助反抗者。</li>
     </ul>
 
     <h2>【基因阶级：无法跨越的鸿沟】</h2>
     <ul>
-      <li><strong>上民</strong>：精英与统治者。享受着高等西餐、高端医疗（克隆人保险），但也承受着极度内卷的精英教育。禁止从事低认知工作。</li>
-      <li><strong>中民</strong>：社会的缓冲层。拥有基础教育和植入芯片，职业不受限制，是维持社会运转的齿轮。</li>
-      <li><strong>下民</strong>：底层的耗材。只能接受快乐教育，喝着营养液，靠“欢愉”药丸度日。禁止从事医生、律师等高认知职业。一旦死亡，就是真正的死亡（买不起克隆保险）。</li>
+      <li><strong>上民</strong>：精英与统治者。享受着高等西餐、高端医疗（克隆人保险），承受极度内卷的精英教育。禁止从事低认知工作。</li>
+      <li><strong>中民</strong>：社会的缓冲层。拥有基础教育和植入芯片，职业不受限制。</li>
+      <li><strong>下民</strong>：底层的耗材。只能接受快乐教育，喝着营养液，靠“欢愉”药丸度日。禁止从事医生、律师等高认知职业。买不起克隆保险，死亡即永久死亡。</li>
     </ul>
 
-    <h2>【社会管控：牢笼与麻醉剂】</h2>
+    <h2>【六城联邦】</h2>
     <ul>
-      <li><strong>电子终端与芯片</strong>：上民和中民在左脖颈植入芯片（等同身份证），终端则用于日常通讯和消费。主脑时刻监控着这里。</li>
-      <li><strong>布尔</strong>：唯一的法定货币（1布尔 = 10人民币），由主脑定量发行。</li>
-      <li><strong>欢愉</strong>：一种白色药丸，服用后能获得极大的快乐。这是主脑用来麻痹下民、防止社会动荡的工具。</li>
-      <li><strong>汇查者</strong>：主脑的直属特务。他们对外自称统领，专门负责抓捕反抗者、清除系统暗桩、以及掩盖不为人知的真相。</li>
+      <li><strong>1城 & 4城</strong>：农业与生命线。1城还是主脑主机的所在地。</li>
+      <li><strong>2城 & 5城</strong>：军事重镇。中民可带轻武器，上民可带中火力武器。</li>
+      <li><strong>3城 & 6城</strong>：商业枢纽。6城因聚集了大量华裔后代，保留了类中国文化。</li>
     </ul>
 
-    <h2>【反抗的火种】</h2>
-    <p>你知道主脑在撒谎。在这个压抑至极的世界里，总有人想要反抗。他们想要推翻极权，将人类的未来握在自己手里。虽然他们目前还没有清晰的建国规划，但他们有“系统”的秘密资助——通过芯片直接在他们脑海中响起的加密密文，正是反抗的开始。</p>
-
-    <h2>【玩家车卡提示】</h2>
-    <ul>
-      <li>可以是心怀鬼胎的上民精英。</li>
-      <li>可以是夹缝求生、渴望阶级跃升的中民。</li>
-      <li>可以是觉醒了反抗意识的下民。</li>
-      <li>可以是潜伏的汇查者、黑市商人、地下黑医，或者被系统选中的“天选之人”。</li>
-       <li>.........</li>
-    </ul>
+    <h2>【系统后台的秘密指令】</h2>
+    <p>作为KP，你可以利用“系统后台”的密文功能，向被系统选中的玩家发送任务或提示。你也可以利用“成长密钥”在跑团结束后发放技能点奖励。记住，汇查者是主脑的直属特务（对外自称统领），专门负责抓捕反抗者。</p>
 
     <div class="box" style="text-align: center; margin-top: 30px;">
-      “欢迎来到纳特联邦。请出示你的身份芯片。”
+      “权限验证通过。祝您带团顺利。”
     </div>
   </div>
 </div>
@@ -284,10 +265,12 @@
   function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-    document.getElementById('tab-' + tabName).classList.add('active');
-    document.getElementById('btn-' + tabName).classList.add('active');
-   else if (tabName === 'worldview') { document.getElementById('tab-worldview').style.display = 'flex'; document.getElementById('btn-worldview').classList.add('active'); }
-}
+    
+    if(document.getElementById('tab-' + tabName)) {
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('btn-' + tabName).classList.add('active');
+    }
+  }
 
   function updateTitleByTheme() {
     const theme = document.documentElement.getAttribute('data-theme');
@@ -381,7 +364,7 @@
     }
 
     const p = players[currentIndex];
-
+    
     // 构造物品列表
     let itemsHtml = '<tr><td colspan="3" style="text-align:center;">无携带物品</td></tr>';
     if (p.items && p.items.length > 0) {
@@ -390,7 +373,7 @@
 
     let html = `
       <h2 style="color:var(--accent); margin-top:0;">${p.name}</h2>
-
+      
       <div class="grid-3">
         <div><label>阶级</label><input type="text" value="${p.class}" readonly></div>
         <div><label>城市</label><input type="text" value="${p.city}" readonly></div>
@@ -438,7 +421,7 @@
           <th style="border:1px solid var(--border); padding:5px;">日期</th>
           <th style="border:1px solid var(--border); padding:5px;">经历</th>
         </tr>
-        ${p.experiences && p.experiences.length > 0
+        ${p.experiences && p.experiences.length > 0 
           ? p.experiences.map(e => `<tr><td style="border:1px solid var(--border); padding:5px;">${e.module}</td><td style="border:1px solid var(--border); padding:5px;">${e.date}</td><td style="border:1px solid var(--border); padding:5px;">${e.summary}</td></tr>`).join('')
           : '<tr><td colspan="3" style="text-align:center; border:1px solid var(--border); padding:5px;">暂无记录</td></tr>'}
       </table>
@@ -467,14 +450,14 @@
         <button class="action-btn" onclick="deleteChar()" style="background: transparent; border: 1px solid var(--danger); color: var(--danger);">移除该角色</button>
       </div>
     `;
-
+    
     panel.innerHTML = html;
   }
 
   function getSkillName(key) {
     const map = {
-      'sk_hack': '骇入', 'sk_shoot': '射击', 'sk_stealth': '潜行',
-      'sk_med': '医疗', 'sk_know': '知识', 'sk_nego': '谈判',
+      'sk_hack': '骇入', 'sk_shoot': '射击', 'sk_stealth': '潜行', 
+      'sk_med': '医疗', 'sk_know': '知识', 'sk_nego': '谈判', 
       'sk_perform': '表演', 'sk_drive': '驾驶', 'sk_survive': '生存'
     };
     return map[key] || key;
@@ -537,15 +520,13 @@
   }
 
   function rollInitiative() {
-    // 把现有的玩家加入战斗
-    combatants = combatants.filter(c => c.type === 'NPC'); // 清理旧的玩家数据
+    combatants = combatants.filter(c => c.type === 'NPC'); 
     players.forEach(p => {
       const per = parseInt(p.attr.per) || 1;
-      const roll = Math.floor(Math.random() * 6) + 1 + per;
+      const roll = Math.floor(Math.random() * 6) + 1 + per; 
       combatants.push({ id: Date.now() + Math.random(), name: p.name, type: p.class, init: roll, hp: p.hp, isPlayer: true });
     });
 
-    // NPC投先攻
     combatants.forEach(c => {
       if (c.type === 'NPC' && c.init === 0) {
         c.init = Math.floor(Math.random() * 6) + 1;
@@ -563,11 +544,11 @@
       tbody.innerHTML = '<tr><td colspan="6">暂无战斗单位</td></tr>';
       return;
     }
-
+    
     combatants.forEach((c, index) => {
       const tr = document.createElement('tr');
-      if (index === 0) tr.className = 'active-turn';
-
+      if (index === 0) tr.className = 'active-turn'; 
+      
       tr.innerHTML = `
         <td style="font-weight:bold; color:var(--accent);">${c.init}</td>
         <td>${c.name}</td>
