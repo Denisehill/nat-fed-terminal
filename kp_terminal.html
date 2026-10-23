@@ -168,7 +168,7 @@
 <!-- ================= 标签页 3：规则查阅库 ================= -->
 <div id="tab-rules" class="tab-content">
   <div class="rules-panel">
-    <h1>纳特联邦 · 跑团规则查询 </h1>
+    <h1 id="rulesPageTitle">纳特联邦 · 跑团规则速查 (系统版)</h1>
     <div class="box"><strong>核心一句话：</strong>投 1d6。1-3 基础成功，4-6 失败。骰出 1 大成功，骰出 6 大失败。技能和属性提升“成功阈值”。</div>
     
     <h2>一、 核心鉴定规则</h2>
@@ -200,7 +200,7 @@
       <li><strong>近战攻击</strong>：判定<strong>力量</strong>。 <strong>远程攻击</strong>：判定<strong>射击</strong>。</li>
       <li><strong>命中</strong>：伤害 = <strong>骰面数值</strong>（即 2 点或 3 点）。</li>
       <li><strong>大成功（骰出 1）</strong>：造成 <span class="highlight">6 点伤害</span>（或翻倍）。</li>
-      <li><strong>大失败（骰出 6）</strong>：未命中，且暴露破绽（下回合被攻击时阈值 +1）。</li>
+      <li><strong>大失败（骰出 6）</strong>：未命中，且陷入破绽（<strong>下回合自身判定阈值 -1</strong>）。</li>
     </ul>
     
     <h3>3. HP参考 & 特殊战斗修正</h3>
@@ -214,10 +214,10 @@
   </div>
 </div>
 
-<!-- ================= 标签页 4：世界观档案 (KP上帝视角版) ================= -->
+<!-- ================= 标签页 4：世界观档案 (后台上帝视角版) ================= -->
 <div id="tab-worldview" class="tab-content">
   <div class="rules-panel">
-    <h1>纳特联邦 · 世界观设定 </h1>
+    <h1 id="worldviewPageTitle">纳特联邦 · 世界观设定库 (系统专属)</h1>
     
     <div class="box">
       <strong>“生存是唯一的底线，而自由，是最高昂的违禁品。”</strong>
@@ -246,10 +246,10 @@
       <li><strong>3城 & 6城</strong>：商业枢纽。6城因聚集了大量华裔后代，保留了类中国文化。</li>
     </ul>
 
-    <h2>【系统后台的秘密指令】</h2>
-    <p>作为KP，你可以利用“系统后台”的密文功能，向被系统选中的玩家发送任务或提示。你也可以利用“成长密钥”在跑团结束后发放技能点奖励。记住，汇查者是主脑的直属特务（对外自称统领），专门负责抓捕反抗者。</p>
+    <h2 id="secretCmdTitle">【系统后台的秘密指令】</h2>
+    <p id="secretCmdDesc">作为系统，你可以利用“系统后台”的密文功能，向被系统选中的玩家发送任务或提示。你也可以利用“成长密钥”在跑团结束后发放技能点奖励。记住，汇查者是主脑的直属特务（对外自称统领），专门负责抓捕反抗者。</p>
 
-    <div class="box" style="text-align: center; margin-top: 30px;">
+    <div class="box" style="text-align: center; margin-top: 30px;" id="worldviewFooter">
       “权限验证通过。祝您带团顺利。”
     </div>
   </div>
@@ -272,26 +272,28 @@
     }
   }
 
+  // 根据主题动态更新所有带有“系统/主脑”及“KP”字样的文本
   function updateTitleByTheme() {
     const theme = document.documentElement.getAttribute('data-theme');
-    const title = document.getElementById('pageTitle');
-    const badge = document.getElementById('titleBadge');
-    const sub = document.getElementById('titleSub');
-    const btn = document.getElementById('themeBtn');
+    const isSystem = (theme === 'system');
+    
+    // 顶部栏
+    document.title = isSystem ? '纳特联邦 - 系统后台' : '纳特联邦 - 主脑后台';
+    document.getElementById('pageTitle').innerText = isSystem ? '纳特联邦 · 系统后台' : '纳特联邦 · 主脑后台';
+    document.getElementById('titleBadge').innerText = isSystem ? 'SYS' : 'BRAIN';
+    document.getElementById('titleSub').innerText = isSystem ? '私域网络控制节点 / 权限等级：最高' : '主脑核心监控终端 / 权限等级：最高';
+    document.getElementById('themeBtn').innerText = isSystem ? '切换至 主脑后台' : '切换至 系统后台';
 
-    if (theme === 'system') {
-      document.title = '纳特联邦 - 系统后台';
-      title.innerText = '纳特联邦 · 系统后台';
-      badge.innerText = 'SYS';
-      sub.innerText = '私域网络控制节点 / 权限等级：最高';
-      btn.innerText = '切换至 主脑后台';
-    } else {
-      document.title = '纳特联邦 - 主脑后台';
-      title.innerText = '纳特联邦 · 主脑后台';
-      badge.innerText = 'BRAIN';
-      sub.innerText = '主脑核心监控终端 / 权限等级：最高';
-      btn.innerText = '切换至 系统后台';
-    }
+    // 规则查阅库标题
+    document.getElementById('rulesPageTitle').innerText = isSystem ? '纳特联邦 · 跑团规则速查 (系统版)' : '纳特联邦 · 跑团规则速查 (主脑版)';
+
+    // 世界观档案标题与KP相关文本
+    document.getElementById('worldviewPageTitle').innerText = isSystem ? '纳特联邦 · 世界观设定库 (系统专属)' : '纳特联邦 · 世界观设定库 (主脑专属)';
+    document.getElementById('secretCmdTitle').innerText = isSystem ? '【系统后台的秘密指令】' : '【主脑后台的秘密指令】';
+    document.getElementById('secretCmdDesc').innerText = isSystem 
+      ? '作为系统，你可以利用“系统后台”的密文功能，向被系统选中的玩家发送任务或提示。你也可以利用“成长密钥”在跑团结束后发放技能点奖励。记住，汇查者是主脑的直属特务（对外自称统领），专门负责抓捕反抗者。'
+      : '作为主脑，你可以利用“主脑后台”的密文功能，监控并发送指令给芯片终端。你也可以利用“成长密钥”在跑团结束后发放技能点奖励。记住，汇查者是你最忠诚的直属特务（对外自称统领），专门负责抓捕反抗者和清除系统暗桩。';
+    document.getElementById('worldviewFooter').innerText = isSystem ? '“权限验证通过。祝您带团顺利。”' : '“监控协议已启动。主脑注视着你。”';
   }
 
   function toggleTheme() {
