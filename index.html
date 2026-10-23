@@ -114,6 +114,7 @@
   <button class="nav-btn active" onclick="switchTab('terminal')" id="btn-terminal">终端控制台</button>
   <button class="nav-btn" onclick="switchTab('rules')" id="btn-rules">规则查阅库</button>
   <button class="nav-btn" onclick="switchTab('identity')" id="btn-identity">身份查询</button>
+  <button class="nav-btn" onclick="switchTab('worldview')" id="btn-worldview">世界观档案</button>
 </div>
 
 <!-- ================= 标签页 1：终端控制台 ================= -->
@@ -303,6 +304,47 @@
       <div id="weapon_result" class="result-box success">请选择阶级和城市以查询权限。</div>
     </div>
   </div>
+</div><!-- ================= 标签页 4：世界观档案（玩家版） ================= -->
+<div id="tab-worldview" class="tab-content" style="display: none;">
+  <div class="rules-panel" style="font-family: 'Courier New', Courier, monospace;">
+    <h1>纳特联邦 · 公民生存指南</h1>
+    
+    <div class="box">
+      <strong>“生存是第一法则。将你的基因、你的劳力、你的忠诚，毫无保留地奉献给主脑。”</strong>
+    </div>
+
+    <h2>【联邦的诞生】</h2>
+    <p>旧世界已毁于无知的傲慢与混乱。伟大的“主脑”在废墟之上，以绝对理性的算法，为我们重建了秩序。联邦的建立只有一个最高目的：保证人类基因的存续。在这里，每一份资源都被精准分配，每一个人都有其存在的价值。</p>
+
+    <h2>【基因决定职责】</h2>
+    <p>为了最高效的社会运转，主脑通过基因检测，将公民划分为三个阶层。这是科学的选择，不容置疑：</p>
+    <ul>
+      <li><strong>上民（精英阶层）</strong>：基因的优良者，负责联邦的决策、科研与管理。你们拥有最好的配给与医疗保障，也必须承担最严苛的精英教育。</li>
+      <li><strong>中民（缓冲阶层）</strong>：基因的普通者，是维持联邦运转的齿轮。你们拥有基础教育和植入芯片，职业不受限制，请安分守己地工作。</li>
+      <li><strong>下民（劳力阶层）</strong>：基因的劣等者，负责基础体力劳动。你们的职责是服从。为了减轻你们的痛苦，联邦会定期配发“欢愉”药丸，请按时服用。</li>
+    </ul>
+
+    <h2>【六城规划】</h2>
+    <ul>
+      <li><strong>1城 & 4城</strong>：生命线。严禁非授权人员靠近，尤其是1城，那里是主脑神圣的所在地。</li>
+      <li><strong>2城 & 5城</strong>：军事重镇。维持秩序的武力中心，严禁在非军事城携带违禁武器。</li>
+      <li><strong>3城 & 6城</strong>：商业枢纽。允许自由贸易，6城保留了部分旧世界东亚文化习惯，但请记住，自由是有限度的。</li>
+    </ul>
+
+    <h2>【公民守则与监控】</h2>
+    <ul>
+      <li><strong>身份芯片</strong>：上民与中民必须佩戴芯片，这是你合法身份的证明。绝对不要试图破坏它，否则将被系统判定为“失效个体”。</li>
+      <li><strong>汇查者</strong>：他们是主脑意志的延伸，潜伏在人群中的暗影。当穿着黑色制服的人出现时，请无条件配合调查。</li>
+      <li><strong>信息管制</strong>：任何企图散播虚假历史、质疑主脑分配、或者跨阶级串联的行为，都会被立刻抹除。</li>
+    </ul>
+
+    <h2>【终端警告】</h2>
+    <p>如果你在脑内听到除了主脑广播之外的杂音，或者看到无法解释的“旧世界”影像，请立刻服用双倍剂量的“欢愉”药丸，并前往最近的医疗站进行精神清洗。</p>
+
+    <div class="box" style="text-align: center; margin-top: 30px;">
+      “主脑注视着你。请出示你的身份芯片，开始你今天的职责。”
+    </div>
+  </div>
 </div>
 
 <script>
@@ -313,7 +355,8 @@
     if (tabName === 'terminal') { document.getElementById('tab-terminal').style.display = 'flex'; document.getElementById('btn-terminal').classList.add('active'); }
     else if (tabName === 'rules') { document.getElementById('tab-rules').style.display = 'flex'; document.getElementById('btn-rules').classList.add('active'); }
     else if (tabName === 'identity') { document.getElementById('tab-identity').style.display = 'flex'; document.getElementById('btn-identity').classList.add('active'); }
-  }
+    else if (tabName === 'worldview') { document.getElementById('tab-worldview').style.display = 'flex'; document.getElementById('btn-worldview').classList.add('active'); }
+}
 
   function toggleTheme() {
     const html = document.documentElement;
