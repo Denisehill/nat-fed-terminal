@@ -647,7 +647,7 @@
     const targetId = document.getElementById('check_target').value;
     const level = getVal(targetId);
     const name = type === 'skill' ? skillMap[targetId] : attrMap[targetId];
-    const result = executeRoll(level, 0, type); // 传入类型
+    const result = executeRoll(level, 0, type);
     let msg = `[${name}] 投出: ${result.raw} (阈值: ${result.threshold})`; let success = false;
     if (result.raw === 1) { msg += " -> 大成功！"; success = true; logMsg(msg, 'var(--success)'); }
     else if (result.raw === 6) { msg += " -> 大失败！"; success = false; logMsg(msg, 'var(--danger)'); }
@@ -659,7 +659,7 @@
   function rollCombat() {
     const type = document.getElementById('combat_type').value;
     const def = parseInt(document.getElementById('target_def').value);
-    let level = 0, name = "", checkType = 'skill";
+    let level = 0, name = "", checkType = 'skill';
     if (type === 'str') { 
       level = getVal('str'); name = "近战(力量)"; checkType = 'attr';
     } else { 
