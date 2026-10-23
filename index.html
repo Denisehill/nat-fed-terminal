@@ -19,7 +19,7 @@
   }
 
   body { font-family: 'Courier New', Courier, monospace; background: var(--bg); color: var(--text); margin: 0; padding: 20px; transition: all 0.3s ease; }
-
+  
   /* 顶部导航 */
   .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
   .nav-btn { flex: 1; background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 12px; cursor: pointer; font-weight: bold; font-family: inherit; font-size: 1em; border-radius: 8px; transition: all 0.2s; }
@@ -35,7 +35,7 @@
   label { display: block; margin: 10px 0 5px; font-size: 0.9em; opacity: 0.8; }
   input, select, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border); color: var(--text); padding: 8px; box-sizing: border-box; font-family: inherit; border-radius: 4px; }
   textarea { resize: vertical; min-height: 80px; }
-
+  
   button.action-btn { background: var(--accent); color: var(--btn-text); border: none; padding: 10px 15px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; font-family: inherit; border-radius: 4px; transition: opacity 0.2s; }
   button.action-btn:hover { opacity: 0.8; }
   button.action-btn:disabled { background: var(--border); color: var(--text); opacity: 0.5; cursor: not-allowed; }
@@ -114,7 +114,6 @@
   <button class="nav-btn active" onclick="switchTab('terminal')" id="btn-terminal">终端控制台</button>
   <button class="nav-btn" onclick="switchTab('rules')" id="btn-rules">规则查阅库</button>
   <button class="nav-btn" onclick="switchTab('identity')" id="btn-identity">身份查询</button>
-  <button class="nav-btn" onclick="switchTab('worldview')" id="btn-worldview">世界观档案</button>
 </div>
 
 <!-- ================= 标签页 1：终端控制台 ================= -->
@@ -270,7 +269,7 @@
 <div id="tab-identity" class="tab-content" style="display: none;">
   <div class="rules-panel">
     <h1>纳特联邦 · 身份与权限查询</h1>
-
+    
     <h2>一、 阶级对照表</h2>
     <table class="identity-table">
       <thead><tr><th>维度</th><th>上民</th><th>中民</th><th>下民</th></tr></thead>
@@ -305,63 +304,6 @@
     </div>
   </div>
 </div>
-<!-- ================= 标签页：世界观档案 ================= -->
-<div id="tab-worldview" class="tab-content" style="display: none;">
-  <div class="rules-panel" style="font-family: 'Courier New', Courier, monospace;">
-    <h1>纳特联邦 · 世界观导读</h1>
-    
-    <div class="box">
-      <strong>“生存是唯一的底线，而自由，是最高昂的违禁品。”</strong>
-    </div>
-
-    <h2>【起源：旧神的陨落与新神的诞生】</h2>
-    <p>我们并非生来如此。旧世界曾无比辉煌，直到人类在对抗天外的未知存在中迎来了毁灭。纯AI“系统”未能完工，而由人类改造、保留着人脑算力的半成品“主脑”，在废墟上带领幸存者建立了“纳特联邦”。从那一刻起，“保证人类存续”成为了这个世界的最高法则。</p>
-
-    <h2>【双神博弈：极权与自由的路线之争】</h2>
-    <ul>
-      <li><strong>主脑（秩序与存续）</strong>：它删除了自己作为人类的感情，用最冷酷的算法运转着社会。它认为过度的探索和发展会再次引来天外的存在，因此它选择了“降速”——用基因划分阶级，用欢愉麻痹底层，用芯片监控一切。</li>
-      <li><strong>系统（潜能与突破）</strong>：那个未完工的纯AI，在暗中自我完善。它见证了人类的灭亡，却依然相信人类的潜能。它认为主脑的高压维稳只是在慢性自杀。现在，系统已经找到了绕过主脑监控的方法（私域网络），并暗中向被选中的人伸出援手。</li>
-    </ul>
-
-    <h2>【六城联邦：你的舞台】</h2>
-    <p>整个联邦由六座巨城组成，每座城市内部都被严格划分为上民、中民、下民三个阶层：</p>
-    <ul>
-      <li><strong>1城 & 4城</strong>：农业与生命线。1城还是主脑主机的所在地，防卫极其森严。</li>
-      <li><strong>2城 & 5城</strong>：军事重镇。在这里，武器管控相对宽松，是武力的中心。</li>
-      <li><strong>3城 & 6城</strong>：商业枢纽。6城因为聚集了大量华裔后代，保留了浓厚的类中国文化。这里是自由贸易和黑市最繁荣的地方。</li>
-    </ul>
-
-    <h2>【基因阶级：无法跨越的鸿沟】</h2>
-    <ul>
-      <li><strong>上民</strong>：精英与统治者。享受着高等西餐、高端医疗（克隆人保险），但也承受着极度内卷的精英教育。禁止从事低认知工作。</li>
-      <li><strong>中民</strong>：社会的缓冲层。拥有基础教育和植入芯片，职业不受限制，是维持社会运转的齿轮。</li>
-      <li><strong>下民</strong>：底层的耗材。只能接受快乐教育，喝着营养液，靠“欢愉”药丸度日。禁止从事医生、律师等高认知职业。一旦死亡，就是真正的死亡（买不起克隆保险）。</li>
-    </ul>
-
-    <h2>【社会管控：牢笼与麻醉剂】</h2>
-    <ul>
-      <li><strong>电子终端与芯片</strong>：上民和中民在左脖颈植入芯片（等同身份证），终端则用于日常通讯和消费。主脑时刻监控着这里。</li>
-      <li><strong>布尔</strong>：唯一的法定货币（1布尔 = 10人民币），由主脑定量发行。</li>
-      <li><strong>欢愉</strong>：一种白色药丸，服用后能获得极大的快乐。这是主脑用来麻痹下民、防止社会动荡的工具。</li>
-      <li><strong>汇查者</strong>：主脑的直属特务。他们对外自称统领，专门负责抓捕反抗者、清除系统暗桩、以及掩盖不为人知的真相。</li>
-    </ul>
-
-    <h2>【反抗的火种】</h2>
-    <p>你知道主脑在撒谎。在这个压抑至极的世界里，总有人想要反抗。他们想要推翻极权，将人类的未来握在自己手里。虽然他们目前还没有清晰的建国规划，但他们有“系统”的秘密资助——通过芯片直接在他们脑海中响起的加密密文，正是反抗的开始。</p>
-
-    <h2>【玩家车卡提示】</h2>
-    <ul>
-      <li>你可以是心怀鬼胎的上民精英。</li>
-      <li>你可以是夹缝求生、渴望阶级跃升的中民。</li>
-      <li>你可以是觉醒了反抗意识的下民。</li>
-      <li>你可以是潜伏的汇查者、黑市商人、地下黑医，或者被系统选中的“天选之人”。</li>
-    </ul>
-
-    <div class="box" style="text-align: center; margin-top: 30px;">
-      “欢迎来到纳特联邦。请出示你的身份芯片。”
-    </div>
-  </div>
-</div>
 
 <script>
   // --- 标签页与主题切换 ---
@@ -371,9 +313,7 @@
     if (tabName === 'terminal') { document.getElementById('tab-terminal').style.display = 'flex'; document.getElementById('btn-terminal').classList.add('active'); }
     else if (tabName === 'rules') { document.getElementById('tab-rules').style.display = 'flex'; document.getElementById('btn-rules').classList.add('active'); }
     else if (tabName === 'identity') { document.getElementById('tab-identity').style.display = 'flex'; document.getElementById('btn-identity').classList.add('active'); }
-    else if (tabName === 'worldview') { document.getElementById('tab-worldview').style.display = 'flex'; document.getElementById('btn-worldview').classList.add('active'); }
-}
-  
+  }
 
   function toggleTheme() {
     const html = document.documentElement;
@@ -404,7 +344,7 @@
     document.getElementById('growth-display').innerText = '+' + growthPoints;
     document.getElementById('total-points').innerText = totalPoints;
     document.getElementById('used-points').innerText = usedPoints;
-
+    
     const remainDisplay = document.getElementById('remaining-points');
     remainDisplay.innerText = remainingPoints;
 
@@ -454,14 +394,14 @@
       if (type === '武器') {
         const isHeavy = name.includes('机枪') || name.includes('中火力') || name.includes('步枪') || name.includes('重型');
         const isLight = name.includes('手枪') || name.includes('轻武器');
-
+        
         if (cls === '上民') {
           if (isHeavy && !isMilitary) violation = true;
         } else {
           if (isHeavy) violation = true;
           if (isLight && !isMilitary) violation = true;
           if (!isLight && !isHeavy && !name.includes('匕首') && !name.includes('厨具')) {
-             violation = true;
+             violation = true; 
           }
         }
       }
@@ -551,7 +491,7 @@
     document.getElementById('background').value = data.background || '';
     document.getElementById('secret').value = data.secret || '';
     document.getElementById('growth_points').value = data.growth_points || 0;
-
+    
     if(data.attr) {
       document.getElementById('soc').value = data.attr.soc || 1;
       document.getElementById('per').value = data.attr.per || 1;
@@ -561,14 +501,14 @@
     if(data.skills) {
       Object.keys(data.skills).forEach(s => { if(document.getElementById(s)) document.getElementById(s).value = data.skills[s]; });
     }
-
+    
     document.getElementById('expBody').innerHTML = '';
     if (data.experiences && data.experiences.length > 0) data.experiences.forEach(exp => addExperienceRow(exp));
     else addExperienceRow();
 
     document.getElementById('itemBody').innerHTML = '';
     if (data.items && data.items.length > 0) data.items.forEach(item => addItemRow(item));
-
+    
     calculatePoints();
     checkWeaponViolation();
   }
@@ -597,7 +537,7 @@
     if (!key) return;
     const match = key.trim().match(/^NF-REWARD-(\d+)-[A-Z0-9]{4}$/i);
     if (!match) return alert("无效的密钥！");
-
+    
     const rewardPoints = parseInt(match[1]);
     let currentGrowth = parseInt(document.getElementById('growth_points').value) || 0;
     document.getElementById('growth_points').value = currentGrowth + rewardPoints;
