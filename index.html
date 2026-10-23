@@ -21,8 +21,8 @@
   body { font-family: 'Courier New', Courier, monospace; background: var(--bg); color: var(--text); margin: 0; padding: 20px; transition: all 0.3s ease; }
   
   /* 顶部导航 */
-  .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
-  .nav-btn { flex: 1; background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 12px; cursor: pointer; font-weight: bold; font-family: inherit; font-size: 1em; border-radius: 8px; transition: all 0.2s; }
+  .nav-bar { display: flex; gap: 10px; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; flex-wrap: wrap; }
+  .nav-btn { flex: 1; background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 12px; cursor: pointer; font-weight: bold; font-family: inherit; font-size: 1em; border-radius: 8px; transition: all 0.2s; min-width: 120px; }
   .nav-btn.active { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
   .nav-btn:hover:not(.active) { border-color: var(--accent); }
 
@@ -73,7 +73,7 @@
   .points-bar span { color: var(--accent); }
   .points-bar .danger-text { color: var(--danger); }
 
-  /* 规则与身份查询样式 */
+  /* 规则、身份与世界观查询样式 */
   .rules-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 30px; width: 100%; line-height: 1.6; }
   .rules-panel h2 { border-bottom: 2px solid var(--accent); margin-top: 30px; }
   .rules-panel h2:first-child { margin-top: 0; }
@@ -157,7 +157,7 @@
       <div><label class="tooltip">知识<span class="tooltiptext">对上民精英教育内容的了解、对旧世界历史的暗中考据、以及对机械或系统原理的掌握。在信息被高度封锁的时代，知识本身就是一种危险的武器。</span></label><input type="number" id="sk_know" min="0" max="3" value="0" oninput="calculatePoints()"></div>
       <div><label class="tooltip">谈判<span class="tooltiptext">在资源分配制的社会里，通过利益交换、威胁或诡辩来达成目的。无论是和黑市商人讨价还价，还是在被盘查时忽悠守卫，谈判都能帮你规避流血冲突。</span></label><input type="number" id="sk_nego" min="0" max="3" value="0" oninput="calculatePoints()"></div>
       <div><label class="tooltip">表演<span class="tooltiptext">伪装身份、控制微表情、或者扮演一个符合你阶级刻板印象的“顺民”。在这个需要戴着面具生存的极权社会，人生如戏，全靠演技。</span></label><input type="number" id="sk_perform" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">驾驶<span class="tooltiptext">操控载具穿梭于六城之间（或走私违禁品）。跨越城区需要面对严苛的关卡与主脑的实时监测，高超的驾驶技术不仅考验速度，更考验你应对盘查的胆识。</span></label><input type="number" id="sk_drive" min="0" max="3" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">驾驶<span class="tooltiptext">操控载具穿梭于六城之间（或走私违禁品）。跨越城区需要面对严苛的关卡与主脑的实时扫描，高超的驾驶技术不仅考验速度，更考验你应对盘查的胆识。</span></label><input type="number" id="sk_drive" min="0" max="3" value="0" oninput="calculatePoints()"></div>
       <div><label class="tooltip">生存<span class="tooltiptext">在资源配给不足的情况下，在城市底层寻找食物、追踪痕迹、躲避未知的危险。它代表了你对这座钢铁丛林底层规则的适应力。</span></label><input type="number" id="sk_survive" min="0" max="3" value="0" oninput="calculatePoints()"></div>
     </div>
 
@@ -253,7 +253,7 @@
       <li><strong>近战攻击</strong>：判定<strong>力量</strong>。 <strong>远程攻击</strong>：判定<strong>射击</strong>。</li>
       <li><strong>命中</strong>：伤害 = <strong>骰面数值</strong>（即 2 点或 3 点）。</li>
       <li><strong>大成功（骰出 1）</strong>：造成 <span class="highlight">6 点伤害</span>（或翻倍）。</li>
-      <li><strong>大失败（骰出 6）</strong>：未命中，且暴露破绽（下回合被攻击时阈值 -1）。</li>
+      <li><strong>大失败（骰出 6）</strong>：未命中，且陷入破绽（<strong>下回合自身判定阈值 -1</strong>）。</li>
     </ul>
     <h3>3. HP参考 & 特殊战斗修正</h3>
     <ul>
@@ -304,7 +304,9 @@
       <div id="weapon_result" class="result-box success">请选择阶级和城市以查询权限。</div>
     </div>
   </div>
-</div><!-- ================= 标签页 4：世界观档案（玩家版） ================= -->
+</div>
+
+<!-- ================= 标签页 4：世界观档案（玩家隐晦版） ================= -->
 <div id="tab-worldview" class="tab-content" style="display: none;">
   <div class="rules-panel" style="font-family: 'Courier New', Courier, monospace;">
     <h1>纳特联邦 · 公民生存指南</h1>
@@ -356,7 +358,7 @@
     else if (tabName === 'rules') { document.getElementById('tab-rules').style.display = 'flex'; document.getElementById('btn-rules').classList.add('active'); }
     else if (tabName === 'identity') { document.getElementById('tab-identity').style.display = 'flex'; document.getElementById('btn-identity').classList.add('active'); }
     else if (tabName === 'worldview') { document.getElementById('tab-worldview').style.display = 'flex'; document.getElementById('btn-worldview').classList.add('active'); }
-}
+  }
 
   function toggleTheme() {
     const html = document.documentElement;
@@ -646,7 +648,7 @@
     const result = executeRoll(level, def);
     let msg = `[${name}] 攻击投出: ${result.raw} (阈值: ${result.threshold})`; let success = false;
     if (result.raw === 1) { msg += ` -> 大成功！造成 6 点伤害`; success = true; logMsg(msg, 'var(--success)'); }
-    else if (result.raw === 6) { msg += " -> 大失败！未命中，暴露破绽"; success = false; logMsg(msg, 'var(--danger)'); }
+    else if (result.raw === 6) { msg += " -> 大失败！未命中，下回合自身判定阈值 -1"; success = false; logMsg(msg, 'var(--danger)'); } // 这里已修改
     else if (result.raw <= result.threshold) { msg += ` -> 命中！造成 ${result.raw} 点伤害`; success = true; logMsg(msg, 'var(--success)'); }
     else { msg += " -> 未命中"; success = false; logMsg(msg, 'var(--danger)'); }
     showResult(msg, success);
