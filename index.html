@@ -148,17 +148,17 @@
       <div><label class="tooltip">意志<span class="tooltiptext">对抗主脑精神压榨与极权社会压抑的锚点。用于抵抗“欢愉”药丸的成瘾诱惑、承受心理创伤，或者在被汇查者审讯时咬死秘密。</span></label><input type="number" id="wil" min="1" max="3" value="1" oninput="calculatePoints()"></div>
     </div>
 
-    <h2>技能 (基础0级)</h2>
+    <h2>技能 (基础0级，最高4级)</h2>
     <div class="grid">
-      <div><label class="tooltip">骇入<span class="tooltiptext">你与主脑监控网络的对抗能力。用于入侵终端、破解安保门禁、篡改芯片数据，或者发现监控盲区。高等级的骇入者甚至能捕捉到“系统”在网络中留下的隐秘痕迹。</span></label><input type="number" id="sk_hack" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">射击<span class="tooltiptext">掌握各类枪械（从军事城的中火力到上民的轻型武器）的使用与保养。在无法近身搏命的距离外，这是最致命的收割手段。</span></label><input type="number" id="sk_shoot" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">潜行<span class="tooltiptext">躲避无处不在的监控探头、避开汇查者的视线、在城区的阴影与管道中穿行。对于反抗者和试图抠出脖子上芯片的人来说，潜行是他们活过明天的必修课。</span></label><input type="number" id="sk_stealth" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">医疗<span class="tooltiptext">战场急救、处理伤口、甚至地下黑市的器官买卖。由于下民被禁止考取专业医疗证书，这往往代表你有着地下诊所的实习经历，或是久病成医的幸存者。</span></label><input type="number" id="sk_med" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">知识<span class="tooltiptext">对上民精英教育内容的了解、对旧世界历史的暗中考据、以及对机械或系统原理的掌握。在信息被高度封锁的时代，知识本身就是一种危险的武器。</span></label><input type="number" id="sk_know" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">谈判<span class="tooltiptext">在资源分配制的社会里，通过利益交换、威胁或诡辩来达成目的。无论是和黑市商人讨价还价，还是在被盘查时忽悠守卫，谈判都能帮你规避流血冲突。</span></label><input type="number" id="sk_nego" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">表演<span class="tooltiptext">伪装身份、控制微表情、或者扮演一个符合你阶级刻板印象的“顺民”。在这个需要戴着面具生存的极权社会，人生如戏，全靠演技。</span></label><input type="number" id="sk_perform" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">驾驶<span class="tooltiptext">操控载具穿梭于六城之间（或走私违禁品）。跨越城区需要面对严苛的关卡与主脑的实时扫描，高超的驾驶技术不仅考验速度，更考验你应对盘查的胆识。</span></label><input type="number" id="sk_drive" min="0" max="3" value="0" oninput="calculatePoints()"></div>
-      <div><label class="tooltip">生存<span class="tooltiptext">在资源配给不足的情况下，在城市底层寻找食物、追踪痕迹、躲避未知的危险。它代表了你对这座钢铁丛林底层规则的适应力。</span></label><input type="number" id="sk_survive" min="0" max="3" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">骇入<span class="tooltiptext">你与主脑监控网络的对抗能力。用于入侵终端、破解安保门禁、篡改芯片数据，或者发现监控盲区。高等级的骇入者甚至能捕捉到“系统”在网络中留下的隐秘痕迹。</span></label><input type="number" id="sk_hack" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">射击<span class="tooltiptext">掌握各类枪械（从军事城的中火力到上民的轻型武器）的使用与保养。在无法近身搏命的距离外，这是最致命的收割手段。</span></label><input type="number" id="sk_shoot" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">潜行<span class="tooltiptext">躲避无处不在的监控探头、避开汇查者的视线、在城区的阴影与管道中穿行。对于反抗者和试图抠出脖子上芯片的人来说，潜行是他们活过明天的必修课。</span></label><input type="number" id="sk_stealth" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">医疗<span class="tooltiptext">战场急救、处理伤口、甚至地下黑市的器官买卖。由于下民被禁止考取专业医疗证书，这往往代表你有着地下诊所的实习经历，或是久病成医的幸存者。</span></label><input type="number" id="sk_med" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">知识<span class="tooltiptext">对上民精英教育内容的了解、对旧世界历史的暗中考据、以及对机械或系统原理的掌握。在信息被高度封锁的时代，知识本身就是一种危险的武器。</span></label><input type="number" id="sk_know" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">谈判<span class="tooltiptext">在资源分配制的社会里，通过利益交换、威胁或诡辩来达成目的。无论是和黑市商人讨价还价，还是在被盘查时忽悠守卫，谈判都能帮你规避流血冲突。</span></label><input type="number" id="sk_nego" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">表演<span class="tooltiptext">伪装身份、控制微表情、或者扮演一个符合你阶级刻板印象的“顺民”。在这个需要戴着面具生存的极权社会，人生如戏，全靠演技。</span></label><input type="number" id="sk_perform" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">驾驶<span class="tooltiptext">操控载具穿梭于六城之间（或走私违禁品）。跨越城区需要面对严苛的关卡与主脑的实时扫描，高超的驾驶技术不仅考验速度，更考验你应对盘查的胆识。</span></label><input type="number" id="sk_drive" min="0" max="4" value="0" oninput="calculatePoints()"></div>
+      <div><label class="tooltip">生存<span class="tooltiptext">在资源配给不足的情况下，在城市底层寻找食物、追踪痕迹、躲避未知的危险。它代表了你对这座钢铁丛林底层规则的适应力。</span></label><input type="number" id="sk_survive" min="0" max="4" value="0" oninput="calculatePoints()"></div>
     </div>
 
     <h2>背景身世</h2>
@@ -226,14 +226,15 @@
 <div id="tab-rules" class="tab-content" style="display: none;">
   <div class="rules-panel">
     <h1>纳特联邦 · 跑团规则速查</h1>
-    <div class="box"><strong>核心一句话：</strong>投 1d6。1-3 基础成功，4-6 失败。骰出 1 大成功，骰出 6 大失败。技能和属性提升“成功阈值”。</div>
+    <div class="box"><strong>核心一句话：</strong>投 1d6。骰出 1 大成功，骰出 6 大失败。技能和属性提升“成功阈值”，达到阈值及以下即为成功。</div>
     <h2>一、 核心鉴定规则</h2>
     <h3>1. 基础判定与补正</h3>
     <ul>
-      <li><strong>技能等级 0</strong>：阈值 3（投出 1、2、3 成功）。</li>
-      <li><strong>技能等级 1</strong>：阈值 4（投出 1、2、3、4 成功）。</li>
-      <li><strong>技能等级 2</strong>：阈值 5（投出 1、2、3、4、5 成功）。</li>
-      <li><strong>技能等级 3</strong>：触发<span class="highlight">“重掷”</span>。若首次投骰失败（且骰面不是1或6），可重新投掷一次。</li>
+      <li><strong>技能等级 0</strong>：阈值 1（投出 1 成功）。</li>
+      <li><strong>技能等级 1</strong>：阈值 2（投出 1、2 成功）。</li>
+      <li><strong>技能等级 2</strong>：阈值 3（投出 1、2、3 成功）。</li>
+      <li><strong>技能等级 3</strong>：阈值 4（投出 1、2、3、4 成功）。</li>
+      <li><strong>技能等级 4</strong>：阈值 4，并触发<span class="highlight">“重掷”</span>。若首次投骰失败（如投出5），可重新投掷一次。</li>
       <li><strong>属性等级 1-3</strong>：1级阈值3，2级阈值4，3级阈值5。（属性不触发重掷）。</li>
     </ul>
     <h3>2. 判定分类与修正</h3>
@@ -251,7 +252,7 @@
     <h3>2. 攻击与伤害（方案A）</h3>
     <ul>
       <li><strong>近战攻击</strong>：判定<strong>力量</strong>。 <strong>远程攻击</strong>：判定<strong>射击</strong>。</li>
-      <li><strong>命中</strong>：伤害 = <strong>骰面数值</strong>（即 2 点或 3 点）。</li>
+      <li><strong>命中</strong>：伤害 = <strong>骰面数值</strong>（即 2 点或 3 点等）。</li>
       <li><strong>大成功（骰出 1）</strong>：造成 <span class="highlight">6 点伤害</span>（或翻倍）。</li>
       <li><strong>大失败（骰出 6）</strong>：未命中，且陷入破绽（<strong>下回合自身判定阈值 -1</strong>）。</li>
     </ul>
@@ -609,15 +610,30 @@
   function logMsg(msg, color = 'var(--text)') { const logDiv = document.getElementById('log'); const p = document.createElement('div'); p.style.color = color; p.innerText = `> ${msg}`; logDiv.appendChild(p); logDiv.scrollTop = logDiv.scrollHeight; }
   function showResult(msg, isSuccess) { const res = document.getElementById('result'); res.innerText = msg; res.className = 'result-box ' + (isSuccess ? 'success' : 'danger'); }
 
-  function executeRoll(level, targetDefense = 0) {
-    let threshold = 3;
-    if (level === 1) threshold = 4;
-    if (level === 2) threshold = 5;
-    let isReroll = (level >= 3);
+  // 核心判定：区分类型
+  function executeRoll(level, targetDefense = 0, type = 'skill') {
+    let threshold = 1;
+    let isReroll = false;
+
+    if (type === 'skill') {
+      if (level === 1) threshold = 2;
+      else if (level === 2) threshold = 3;
+      else if (level >= 3) threshold = 4;
+      if (level >= 4) isReroll = true;
+    } else { // 属性
+      if (level === 1) threshold = 3;
+      else if (level === 2) threshold = 4;
+      else if (level >= 3) threshold = 5;
+      isReroll = false;
+    }
+    
     threshold -= targetDefense;
     if (threshold < 1) threshold = 1;
+    
     let raw = Math.floor(Math.random() * 6) + 1;
     let finalRaw = raw;
+    
+    // 重掷逻辑 (如果4级技能且第一次判定失败且不是大成功/大失败)
     if (isReroll && raw > threshold && raw !== 1 && raw !== 6) {
       raw = Math.floor(Math.random() * 6) + 1;
       finalRaw = raw;
@@ -631,7 +647,7 @@
     const targetId = document.getElementById('check_target').value;
     const level = getVal(targetId);
     const name = type === 'skill' ? skillMap[targetId] : attrMap[targetId];
-    const result = executeRoll(level);
+    const result = executeRoll(level, 0, type); // 传入类型
     let msg = `[${name}] 投出: ${result.raw} (阈值: ${result.threshold})`; let success = false;
     if (result.raw === 1) { msg += " -> 大成功！"; success = true; logMsg(msg, 'var(--success)'); }
     else if (result.raw === 6) { msg += " -> 大失败！"; success = false; logMsg(msg, 'var(--danger)'); }
@@ -643,12 +659,16 @@
   function rollCombat() {
     const type = document.getElementById('combat_type').value;
     const def = parseInt(document.getElementById('target_def').value);
-    let level = 0, name = "";
-    if (type === 'str') { level = getVal('str'); name = "近战(力量)"; } else { level = getVal('sk_shoot'); name = "远程(射击)"; }
-    const result = executeRoll(level, def);
+    let level = 0, name = "", checkType = 'skill";
+    if (type === 'str') { 
+      level = getVal('str'); name = "近战(力量)"; checkType = 'attr';
+    } else { 
+      level = getVal('sk_shoot'); name = "远程(射击)"; checkType = 'skill';
+    }
+    const result = executeRoll(level, def, checkType);
     let msg = `[${name}] 攻击投出: ${result.raw} (阈值: ${result.threshold})`; let success = false;
     if (result.raw === 1) { msg += ` -> 大成功！造成 6 点伤害`; success = true; logMsg(msg, 'var(--success)'); }
-    else if (result.raw === 6) { msg += " -> 大失败！未命中，下回合自身判定阈值 -1"; success = false; logMsg(msg, 'var(--danger)'); } // 这里已修改
+    else if (result.raw === 6) { msg += " -> 大失败！未命中，下回合自身判定阈值 -1"; success = false; logMsg(msg, 'var(--danger)'); } 
     else if (result.raw <= result.threshold) { msg += ` -> 命中！造成 ${result.raw} 点伤害`; success = true; logMsg(msg, 'var(--success)'); }
     else { msg += " -> 未命中"; success = false; logMsg(msg, 'var(--danger)'); }
     showResult(msg, success);
