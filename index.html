@@ -49,7 +49,12 @@
   .danger { color: var(--danger); border-color: var(--danger); }
   .log { height: 150px; overflow-y: auto; background: var(--input-bg); border: 1px solid var(--border); padding: 10px; font-size: 0.85em; margin-top: 10px; border-radius: 4px; }
 
-  .theme-switch { position: fixed; top: 20px; right: 20px; width: auto; padding: 10px 20px; background: var(--panel); color: var(--text); border: 1px solid var(--accent); z-index: 100; font-family: inherit; cursor: pointer; border-radius: 4px; }
+  /* 底部主题切换按钮 */
+  .theme-switch { 
+    display: block; width: 200px; margin: 40px auto 20px auto; padding: 12px; 
+    background: var(--panel); color: var(--text); border: 1px solid var(--accent); 
+    font-family: inherit; font-size: 1em; cursor: pointer; border-radius: 4px; 
+  }
 
   .tooltip { position: relative; display: inline-block; cursor: help; border-bottom: 1px dotted var(--text); }
   .tooltip .tooltiptext { visibility: hidden; width: 220px; background-color: var(--tooltip-bg); color: #fff; text-align: left; border-radius: 6px; padding: 10px; position: absolute; z-index: 10; bottom: 125%; left: 50%; margin-left: -110px; opacity: 0; transition: opacity 0.3s; font-size: 0.85em; line-height: 1.4; box-shadow: 0 4px 8px rgba(0,0,0,0.3); pointer-events: none; font-weight: normal; }
@@ -98,8 +103,6 @@
 </style>
 </head>
 <body>
-
-<button class="theme-switch" onclick="toggleTheme()" id="themeBtn">切换至 主脑 视角</button>
 
 <!-- 系统消息弹窗 -->
 <div class="msg-modal" id="msgModal">
@@ -349,6 +352,9 @@
     </div>
   </div>
 </div>
+
+<!-- 底部主题切换按钮 -->
+<button class="theme-switch" onclick="toggleTheme()" id="themeBtn">切换至 主脑 视角</button>
 
 <script>
   // --- 标签页与主题切换 ---
@@ -610,7 +616,6 @@
   function logMsg(msg, color = 'var(--text)') { const logDiv = document.getElementById('log'); const p = document.createElement('div'); p.style.color = color; p.innerText = `> ${msg}`; logDiv.appendChild(p); logDiv.scrollTop = logDiv.scrollHeight; }
   function showResult(msg, isSuccess) { const res = document.getElementById('result'); res.innerText = msg; res.className = 'result-box ' + (isSuccess ? 'success' : 'danger'); }
 
-  // 核心判定：区分类型
   function executeRoll(level, targetDefense = 0, type = 'skill') {
     let threshold = 1;
     let isReroll = false;
@@ -620,7 +625,7 @@
       else if (level === 2) threshold = 3;
       else if (level >= 3) threshold = 4;
       if (level >= 4) isReroll = true;
-    } else { // 属性
+    } else {
       if (level === 1) threshold = 3;
       else if (level === 2) threshold = 4;
       else if (level >= 3) threshold = 5;
@@ -633,7 +638,6 @@
     let raw = Math.floor(Math.random() * 6) + 1;
     let finalRaw = raw;
     
-    // 重掷逻辑 (如果4级技能且第一次判定失败且不是大成功/大失败)
     if (isReroll && raw > threshold && raw !== 1 && raw !== 6) {
       raw = Math.floor(Math.random() * 6) + 1;
       finalRaw = raw;
