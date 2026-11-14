@@ -29,8 +29,6 @@
     color: var(--accent); border-radius: 4px; letter-spacing: 1px; font-weight: normal; opacity: 0.8;
   }
   .title-block .sub-title { font-size: 0.65em; opacity: 0.6; display: block; margin-top: 2px; color: var(--text); font-weight: normal; letter-spacing: 0.5px; }
-  .theme-switch { background: var(--panel); color: var(--text); border: 1px solid var(--accent); padding: 8px 16px; cursor: pointer; border-radius: 4px; font-family: inherit; transition: all 0.2s; }
-  .theme-switch:hover { background: var(--accent); color: var(--btn-text); }
 
   /* 顶部导航栏 */
   .nav-bar {
@@ -105,6 +103,13 @@
   .rules-panel li { margin-bottom: 8px; }
   .rules-panel .highlight { color: var(--accent); font-weight: bold; }
   .rules-panel .box { background: var(--input-bg); border-left: 4px solid var(--accent); padding: 15px; margin: 15px 0; border-radius: 0 4px 4px 0; }
+
+  /* 底部主题切换按钮 */
+  .theme-switch { 
+    display: block; width: 200px; margin: 40px auto 20px auto; padding: 12px; 
+    background: var(--panel); color: var(--text); border: 1px solid var(--accent); 
+    font-family: inherit; font-size: 1em; cursor: pointer; border-radius: 4px; 
+  }
 </style>
 </head>
 <body>
@@ -115,7 +120,6 @@
     <span class="badge" id="titleBadge">SYS</span>
     <span class="sub-title" id="titleSub">私域网络控制节点 / 权限等级：最高</span>
   </div>
-  <button class="theme-switch" onclick="toggleTheme()" id="themeBtn">切换至 主脑后台</button>
 </div>
 
 <div class="nav-bar">
@@ -255,6 +259,9 @@
     </div>
   </div>
 </div>
+
+<!-- 底部主题切换按钮 -->
+<button class="theme-switch" onclick="toggleTheme()" id="themeBtn">切换至 主脑后台</button>
 
 <script>
   // --- 全局变量 ---
